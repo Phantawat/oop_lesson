@@ -74,3 +74,15 @@ class Table:
 
     def __str__(self):
         return self.table_name + ':' + str(self.table)
+
+table1 = Table('cities', cities)
+table2 = Table('countries', countries)
+my_DB = DB()
+my_table1 = my_DB.search('countries')
+table3 = table1.join(table2, 'country')
+my_DB.insert(table3)
+table4 = table3.filter(lambda x: x['EU'] == 'yes').filter(lambda x: x['coastline'] == 'no')
+print(table4.aggregate(lambda x: max(x), 'temperature'))
+print(table4.aggregate(lambda x: min(x), 'temperature'))
+print(table4.aggregate(lambda x: max(x), 'latitude'))
+print(table4.aggregate(lambda x: min(x), 'latitude'))
